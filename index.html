@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOHOKU STAY CARE｜営業支援</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">T</span><span>TOHOKU<br><b>STAY CARE</b></span></a>
+    <nav><button class="nav-active">施設リスト</button><button id="openTemplate">営業文テンプレート</button></nav>
+    <button id="addButton" class="button primary">＋ 新規施設を登録</button>
+  </header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">SALES WORKSPACE</p><h1>東北の宿を、<br><em>永く、美しく。</em></h1><p>交換・リフォームする前に、補修という選択肢を。<br>営業候補と次のアクションを、ひとつの画面で。</p></div>
+      <div class="concept"><span>OUR MISSION</span><strong>修繕コストと<br>稼働停止を減らす。</strong><p>東北の現地メンテナンスパートナーとして、施設運営に寄り添います。</p></div>
+    </section>
+    <section id="stats" class="stats" aria-label="集計"></section>
+    <section class="workspace">
+      <div class="section-head"><div><p class="eyebrow">PROSPECTS</p><h2>営業候補施設</h2></div><button id="exportCsv" class="button secondary">⇩ CSV出力</button></div>
+      <div class="filters">
+        <label class="search">⌕ <input id="search" type="search" placeholder="施設名・会社名・市区町村で検索"></label>
+        <select id="prefFilter"><option value="">すべての都道府県</option></select>
+        <select id="priorityFilter"><option value="">すべての優先度</option><option>S</option><option>A</option><option>B</option><option>C</option></select>
+        <select id="statusFilter"><option value="">すべてのステータス</option></select>
+        <button id="clearFilters" class="text-button">クリア</button>
+      </div>
+      <div id="resultCount" class="result-count"></div>
+      <div id="cards" class="cards"></div>
+      <div id="empty" class="empty" hidden><b>条件に合う施設がありません</b><span>絞り込みを変更するか、新しい施設を登録してください。</span></div>
+    </section>
+  </main>
+
+  <dialog id="facilityDialog"><form id="facilityForm" method="dialog"><div class="dialog-head"><div><p class="eyebrow">PROSPECT</p><h2 id="formTitle">施設を登録</h2></div><button type="button" class="icon-button close">×</button></div><input type="hidden" name="id">
+    <div class="form-grid">
+      <label class="wide">施設名 <b>*</b><input name="name" required></label><label>運営会社名<input name="company"></label>
+      <label>都道府県 <b>*</b><select name="prefecture" required></select></label><label>市区町村<input name="city"></label><label>施設種別<select name="type"></select></label>
+      <label>公式URL<input name="officialUrl" type="url" placeholder="https://"></label><label>電話番号<input name="phone" type="tel"></label><label>メール<input name="email" type="email"></label>
+      <label class="wide">問い合わせフォームURL<input name="contactUrl" type="url" placeholder="https://"></label>
+      <fieldset class="wide"><legend>営業判断の材料</legend><div class="signals" id="signalFields"></div></fieldset>
+      <label class="wide">情報取得元URL<input name="sourceUrl" type="url" placeholder="利用規約を守って手動で確認したページ"></label>
+      <label class="wide">メモ<textarea name="notes" rows="3"></textarea></label><label>営業ステータス<select name="status"></select></label>
+    </div><div class="dialog-actions"><button type="button" id="deleteButton" class="button danger" hidden>削除</button><span></span><button type="button" class="button secondary close">キャンセル</button><button class="button primary" value="save">保存する</button></div>
+  </form></dialog>
+
+  <dialog id="templateDialog"><div class="dialog-head"><div><p class="eyebrow">MESSAGE DRAFT</p><h2>営業文テンプレート</h2></div><button class="icon-button template-close">×</button></div><div class="template-layout"><div><label>対象施設<select id="templateFacility"></select></label><label>担当者名（任意）<input id="contactPerson" placeholder="ご担当者"></label><label>伝えたい補修箇所<select id="repairArea"><option>床・建具・家具・水回り</option><option>床・フローリング</option><option>建具・家具</option><option>水回り</option></select></label><p class="notice">送信機能はありません。内容を必ず確認し、コピーしてご利用ください。</p></div><div><label>生成された営業文<textarea id="messagePreview" rows="16"></textarea></label><button id="copyMessage" class="button primary wide-button">営業文をコピー</button><small id="copyStatus" aria-live="polite"></small></div></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body></html>
